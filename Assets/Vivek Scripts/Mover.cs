@@ -5,9 +5,6 @@ using UnityEngine.AI;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField]
-    Transform target;
-    
     NavMeshAgent navMeshAgent;
 
     // Start is called before the first frame update
@@ -25,8 +22,18 @@ public class Mover : MonoBehaviour
 
     void moveToCursor()
     {
+        //Declared a variable of type Ray to cast a ray.
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit data types stores the information such as where ray 
+        //has hit, what it has hit, etc.
         RaycastHit hit;
+        
+        /*In the following segment, we use Unity Physics to cast a ray.
+        This function gives us true or false when it hits something.
+        So it checks if 'ray' from above has hit anything and stores info in hit.
+        Then if hasHit is true, we use NavMesh Agent to move the agent to destination
+        where the ray has hit. And that we get through 'hit' and then accessing its point of contact.
+        */
         bool hasHit = Physics.Raycast(ray , out hit);
         if(hasHit)
         {
